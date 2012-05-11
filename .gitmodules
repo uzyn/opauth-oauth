@@ -1,0 +1,3 @@
+[submodule "vendors/tmhOAuth"]
+	path = vendors/tmhOAuth
+	url = https://github.com/themattharris/tmhOAuth.git
