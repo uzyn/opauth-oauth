@@ -43,7 +43,7 @@ Reference
 
 License
 ---------
-Opauth OAuth is MIT Licensed
+Opauth OAuth is MIT Licensed  
 Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
 tmhOAuth is [Apache 2 licensed](https://github.com/themattharris/tmhOAuth/blob/master/LICENSE).
