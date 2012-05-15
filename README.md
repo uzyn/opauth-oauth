@@ -2,9 +2,16 @@ Opauth OAuth
 =============
 A generic [Opauth][1] strategy implementing OAuth 1.0A, using [tmhOAuth](https://github.com/themattharris/tmhOAuth).
 
+This is a generic OAuth strategy intended as a helper for developers of Opauth strategies, especially those that are based on OAuth.
+
+
 Getting started
 ---------------
-This is a generic OAuth strategy intended as a helper for developers of Opauth strategies, especially those that are based on OAuth.
+```bash
+cd path_to_opauth/Strategy
+git clone git://github.com/uzyn/opauth-oauth.git OAuth
+```
+
 
 Strategy configuration
 ----------------------
