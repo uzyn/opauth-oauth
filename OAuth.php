@@ -7,9 +7,8 @@ class OAuth extends OpauthStrategy{
 	public $expects = array(
 		'consumer_key', 		
 		'consumer_secret',
-									// Example: for Twitter
-		'request_token_url',		// 'https://api.twitter.com/oauth/request_token'
-		'access_token_url'			// 'https://api.twitter.com/oauth/authorize' or 'https://api.twitter.com/oauth/authenticate'
+		'request_token_url',
+		'access_token_url'
 	);
 	
 /**
@@ -50,6 +49,9 @@ class OAuth extends OpauthStrategy{
 	public function __construct(&$Opauth, $strategy){
 		parent::__construct($Opauth, $strategy);
 		
+		$this->strategy['consumer_key'] = $this->strategy['consumer_key'];
+		$this->strategy['consumer_secret'] = $this->strategy['consumer_secret'];
+		
 		require dirname(__FILE__).'/Vendor/tmhOAuth/tmhOAuth.php';
 		$this->tmhOAuth = new tmhOAuth($this->strategy);
 	}
@@ -67,8 +69,7 @@ class OAuth extends OpauthStrategy{
 		if ($results !== false && !empty($results['oauth_token']) && !empty($results['oauth_token_secret'])){
 			session_start();
 			$_SESSION['_opauth_oauth'] = $results;
-			
-			$this->_access_token($results['oauth_token']);
+			$this->_authorize($results['oauth_token']);
 		}
 	}
 
@@ -77,24 +78,38 @@ class OAuth extends OpauthStrategy{
  */
 	public function oauth_callback(){
 		session_start();
+		$session = $_SESSION['_opauth_oauth'];
+		unset($_SESSION['_opauth_oauth']);
+		
+		$this->tmhOAuth->config['user_token'] = $session['oauth_token'];
+		$this->tmhOAuth->config['user_secret'] = $session['oauth_token_secret'];
+
+		$results =  $this->_request('POST', $this->strategy['access_token_url']);
+		
 		$this->auth = array(
 			'provider' => 'oauth',
 			'uid' => null,
-			'credentials' => array_merge($_SESSION['_opauth_oauth'], $_REQUEST)
+			'credentials' => array(
+				'token' => $results['oauth_token'],
+				'secret' => $results['oauth_token_secret']
+			),
 		);
-		
-		unset($_SESSION['_oauth_oauth']);
 		
 		$this->callback();
 	}
 	
-	private function _access_token($oauth_token){
-		$params = array(
-			'oauth_token' => $oauth_token
-		);
+	/**
+	 * Sends user to provider's site for authentication
+	 * calls back to oauth_callback() when done
+	 */
+	private function _authorize($oauth_token){
+		// Sends to provider's site
 		
-		$this->redirect($this->strategy['access_token_url'].'?'.http_build_query($params));
+		// Simulate calls to callback
+		// For actual scenario, this should be done at the provider's site and not here
+		$this->redirect($this->strategy['oauth_callback']);
 	}
+	
 	
 /**
  * Wrapper of tmhOAuth's request() with Opauth's error handling.
