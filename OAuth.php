@@ -1,9 +1,21 @@
 <?php
+/**
+ * OAuth
+ * 
+ * Generic Opauth strategy implementing OAuth
+ * More information on Opauth: http://opauth.org
+ * 
+ * @copyright		Copyright © 2012 U-Zyn Chua (http://uzyn.com)
+ * @link 			http://opauth.org
+ * @package			OAuth
+ * @license			MIT License
+ */
+
 class OAuth extends OpauthStrategy{
 	
-/**
- * Compulsory configuration options
- */
+	/**
+	 * Compulsory configuration options
+	 */
 	public $expects = array(
 		'consumer_key', 		
 		'consumer_secret',
@@ -11,9 +23,9 @@ class OAuth extends OpauthStrategy{
 		'access_token_url'
 	);
 	
-/**
- * Compulsory configuration options
- */
+	/**
+	 * Compulsory configuration options
+	 */
 	public $defaults = array(
 		'method' => 'POST', 		// The HTTP method being used. e.g. POST, GET, HEAD etc 
 		'oauth_callback' => '{complete_path}oauth/oauth_callback',
@@ -41,9 +53,9 @@ class OAuth extends OpauthStrategy{
 		'as_header'				  		=> true,
 	);
 	
-/**
- * tmhOAuth instance
- */
+	/**
+	 * tmhOAuth instance
+	 */
 	private $tmhOAuth;
 	
 	public function __construct(&$Opauth, $strategy){
@@ -56,9 +68,9 @@ class OAuth extends OpauthStrategy{
 		$this->tmhOAuth = new tmhOAuth($this->strategy);
 	}
 	
-/**
- * Auth request
- */
+	/**
+	 * Auth request
+	 */
 	public function request(){
 		$params = array(
 			'oauth_callback' => $this->strategy['oauth_callback']
@@ -73,9 +85,9 @@ class OAuth extends OpauthStrategy{
 		}
 	}
 
-/**
- * Receives oauth_verifier, requests for access_token and redirect to callback
- */
+	/**
+	 * Receives oauth_verifier, requests for access_token and redirect to callback
+	 */
 	public function oauth_callback(){
 		session_start();
 		$session = $_SESSION['_opauth_oauth'];
@@ -111,19 +123,19 @@ class OAuth extends OpauthStrategy{
 	}
 	
 	
-/**
- * Wrapper of tmhOAuth's request() with Opauth's error handling.
- * 
- * request():
- * Make an HTTP request using this library. This method doesn't return anything.
- * Instead the response should be inspected directly.
- *
- * @param string $method the HTTP method being used. e.g. POST, GET, HEAD etc
- * @param string $url the request URL without query string parameters
- * @param array $params the request parameters as an array of key=value pairs
- * @param string $useauth whether to use authentication when making the request. Default true.
- * @param string $multipart whether this request contains multipart data. Default false
- */	
+	/**
+	 * Wrapper of tmhOAuth's request() with Opauth's error handling.
+	 * 
+	 * request():
+	 * Make an HTTP request using this library. This method doesn't return anything.
+	 * Instead the response should be inspected directly.
+	 *
+	 * @param string $method the HTTP method being used. e.g. POST, GET, HEAD etc
+	 * @param string $url the request URL without query string parameters
+	 * @param array $params the request parameters as an array of key=value pairs
+	 * @param string $useauth whether to use authentication when making the request. Default true.
+	 * @param string $multipart whether this request contains multipart data. Default false
+	 */	
 	private function _request($method, $url, $params = array(), $useauth = true, $multipart = false){
 		$code = $this->tmhOAuth->request($method, $url, $params, $useauth, $multipart);
 
