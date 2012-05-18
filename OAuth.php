@@ -28,7 +28,7 @@ class OAuth extends OpauthStrategy{
 	 */
 	public $defaults = array(
 		'method' => 'POST', 		// The HTTP method being used. e.g. POST, GET, HEAD etc 
-		'oauth_callback' => '{complete_path}oauth/oauth_callback',
+		'oauth_callback' => '{complete_url_to_strategy}oauth_callback',
 		
 		// From tmhOAuth
 		// Refer to Vendor/tmhOAuth/tmhOAuth.php for details on these
