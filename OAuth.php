@@ -7,7 +7,7 @@
  * 
  * @copyright		Copyright © 2012 U-Zyn Chua (http://uzyn.com)
  * @link 			http://opauth.org
- * @package			OAuth
+ * @package			Opauth.OAuth
  * @license			MIT License
  */
 
