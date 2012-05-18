@@ -83,6 +83,15 @@ class OAuth extends OpauthStrategy{
 			$_SESSION['_opauth_oauth'] = $results;
 			$this->_authorize($results['oauth_token']);
 		}
+		else{
+			$error = array(
+				'provider' => 'OAuth',
+				'code' => 'request_token_error',
+				'raw' => $results
+			);
+
+			$this->errorCallback($error);
+		}
 	}
 
 	/**
@@ -144,10 +153,14 @@ class OAuth extends OpauthStrategy{
 			return $response;		
 		}
 		else {
-			// Log error
-			//$this->log($this->tmhOAuth->response['response']);
-			print_r($code);
-			print_r($this->tmhOAuth->response['response']);
+			$error = array(
+				'provider' => 'OAuth',
+				'code' => $code,
+				'raw' => $this->tmhOAuth->response['response']
+			);
+
+			$this->errorCallback($error);
+			
 			return false;
 		}
 		
