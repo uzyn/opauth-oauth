@@ -58,8 +58,8 @@ class OAuth extends OpauthStrategy{
 	 */
 	private $tmhOAuth;
 	
-	public function __construct(&$Opauth, $strategy){
-		parent::__construct($Opauth, $strategy);
+	public function __construct($strategy, $env){
+		parent::__construct($strategy, $env);
 		
 		$this->strategy['consumer_key'] = $this->strategy['consumer_key'];
 		$this->strategy['consumer_secret'] = $this->strategy['consumer_secret'];
