@@ -11,7 +11,7 @@
  * @license			MIT License
  */
 
-class OAuth extends OpauthStrategy{
+class OAuthStrategy extends OpauthStrategy{
 	
 	/**
 	 * Compulsory configuration options
