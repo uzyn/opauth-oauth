@@ -5,10 +5,10 @@
  * Generic Opauth strategy implementing OAuth
  * More information on Opauth: http://opauth.org
  * 
- * @copyright		Copyright © 2012 U-Zyn Chua (http://uzyn.com)
- * @link 			http://opauth.org
- * @package			Opauth.OAuth
- * @license			MIT License
+ * @copyright    Copyright © 2012 U-Zyn Chua (http://uzyn.com)
+ * @link         http://opauth.org
+ * @package      Opauth.OAuthStrategy
+ * @license      MIT License
  */
 
 class OAuthStrategy extends OpauthStrategy{
